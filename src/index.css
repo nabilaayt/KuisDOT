@@ -1,1 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 @import "tailwindcss";
+
+@theme {
+    --font-fredoka: "Fredoka", sans-serif;
+    --font-nunito: "Nunito", sans-serif;
+    --color-blue: #A2DDF9;
+    --color-red: #F2787A;
+    --color-primaryOrange: #F8A170;
+    --color-secondOrange: #FFB382;
+    --color-pink: #FABED1;
+    --color-purple: #DEAEF4;
+    --color-yellow: #FED04D;
+    --color-green: #ABE787;
+    --color-heading: #3E3E3E;
+    --color-text: #636363;
+    --color-cream: #FFF7E2;
+}
+
+@layer utilities{
+    .text-blue { color: var(--color-blue); }
+    .text-red { color: var(--color-red); }
+    .text-cream { color: var(--color-cream); }
+    .text-purple { color: var(--color-purple); }
+    .text-primaryOrange { color: var(--color-primaryOrange); }
+    .text-yellow { color: var(--color-yellow); }
+    .text-green { color: var(--color-green); }
+    .bg-blue { background-color: var(--color-blue); }
+    .bg-secondOrange { background-color: var(--color-secondOrange); }
+    .bg-yellow { background-color: var(--color-yellow); }
+    .bg-pink { background-color: var(--color-pink); }
+    .text-heading { color: var(--color-heading); }
+    .text-body { color: var(--color-text); }
+
+    .text-outline-cream {
+        -webkit-text-stroke: 6px var(--color-cream);
+        paint-order: stroke fill;
+    }
+
+    .bg-landing {
+        background-image: url("/assets/background/BG-1.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .bg-quiz {
+        background-image: url("/assets/background/BG-3.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .bg-result {
+        background-image: url("/assets/background/BG-2.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}
