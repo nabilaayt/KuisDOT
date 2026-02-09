@@ -1,6 +1,11 @@
-import { NavLink } from "react-router-dom";
+import { Link  } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function LandingPage () {
+    const { user, loading } = useAuth();
+
+    if (loading) return null;
+
     return(
         <section id="landingPage" className="font-fredoka bg-landing bg-repeat bg-cover bg-bottom w-full h-screen">
             <div className="w-full min-h-screen flex justify-center items-center px-4">
@@ -15,12 +20,12 @@ export default function LandingPage () {
                             <span className="text-red text-outline-cream">O</span>
                         </h1>
                     </div>
-                    <NavLink 
-                        to="/login"
+                    <Link  
+                        to={user ? "/home" : "/login"}
                         className="w-full max-w-50 sm:max-w-xs md:max-w-sm py-3 sm:py-4 bg-yellow rounded-3xl border-4 text-center border-cream text-white font-semibold text-2xl sm:text-3xl md:text-4xl hover:scale-110 transition-transform duration-200"
                     >
                         START
-                    </NavLink>
+                    </Link >
                 </div>
             </div>
         </section>

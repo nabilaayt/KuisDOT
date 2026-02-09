@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AnswerOption from "../components/AnswerOption";
 import QuestionCard from "../components/QuestionCard";
@@ -22,6 +22,12 @@ export default function QuizAnimals() {
         correctIndex: 1
     };
 
+    useEffect(() => {
+        if(quizState.finished) {
+            navigate("/quizResult");
+        }
+    }, [quizState.finished]);
+
     const handleAnswer = (i) => {
         setSelected(i);
 
@@ -30,12 +36,12 @@ export default function QuizAnimals() {
 
         setTimeout(() => {
             setSelected(null);
-
-            if(quizState.index + 1 >= quizState.total) {
-                navigate("/quizResult");
-            }
-        }, 800);
+        }, 600);
     };
+
+    // Format Timer
+    const minutes = String(Math.floor(quizState.timeLeft / 60)).padStart(2, "0");
+    const seconds = String(quizState.timeLeft % 60).padStart(2, "0");
 
     // if(loading) return <p>Loading...</p>;
 
@@ -68,7 +74,7 @@ export default function QuizAnimals() {
                             }}
                         >
                             <p className="text-cream text-2xl sm:text-3xl md:text-4xl font-extrabold text-center">
-                                12:00
+                                {minutes}:{seconds}
                             </p>
                         </div>
                     </div>

@@ -8,16 +8,65 @@ import QuizAnimals from "./pages/QuizAnimals";
 import QuizMusic from "./pages/QuizMusic";
 import QuizResult from "./pages/QuizResult";
 
+// Components
+import ProtectedRoute from "./components/ProtectedRoute";
+
 function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/quizAnimals" element={<QuizAnimals />} />
-      <Route path="/quizMusic" element={<QuizMusic />} />
-      <Route path="/quizResult" element={<QuizResult />} />
+
+      {/* Public Page */}
+      <Route 
+        path="/" 
+        element={
+          <ProtectedRoute>
+            <LandingPage />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/login" 
+        element={
+          <ProtectedRoute publicOnly>
+            <Login />
+          </ProtectedRoute>
+        } 
+      />
+
+      {/* Protected Page */}
+      <Route 
+        path="/home" 
+        element={
+          <ProtectedRoute requireAuth>
+            <Home />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/quizAnimals" 
+        element={
+          <ProtectedRoute requireAuth>
+            <QuizAnimals />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/quizMusic" 
+        element={
+          <ProtectedRoute requireAuth>
+            <QuizMusic />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/quizResult" 
+        element={
+          <ProtectedRoute requireAuth>
+            <QuizResult />
+          </ProtectedRoute>
+        } 
+      />
     </Routes>
   );
 };
