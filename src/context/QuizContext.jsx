@@ -2,16 +2,17 @@ import { createContext, useContext, useReducer, useEffect } from "react";
 
 const QuizContext = createContext();
 
-const INITIAL_TIME = 12 * 60; // 12 menit
+const INITIAL_TIME = 5 * 60; // 10 menit
 
 const initialState = {
   index: 0,
   total: 10,
   correct: 0,
-  wrong: 0,
+  incorrect: 0,
   answered: 0,
   timeLeft: INITIAL_TIME,
-  finished: false
+  finished: false,
+  categoryName: null
 };
 
 // Reducer
@@ -27,6 +28,12 @@ function reducer(state, action) {
         total: action.total
       };
 
+    case "SET_CATEGORY":
+      return {
+        ...state,
+        categoryName: action.name
+    };
+
     case "ANSWER":
       const nextIndex = state.index + 1;
 
@@ -35,7 +42,7 @@ function reducer(state, action) {
         index: nextIndex,
         answered: state.answered + 1,
         correct: action.isCorrect ? state.correct + 1 : state.correct,
-        wrong: !action.isCorrect ? state.wrong + 1 : state.wrong,
+        incorrect: !action.isCorrect ? state.incorrect + 1 : state.incorrect,
         finished: nextIndex >= state.total
       };
 
@@ -81,6 +88,10 @@ export function QuizProvider({ children }) {
     return () => clearInterval(timer);
   }, [state.finished]);
 
+  const setCategory = (name) => {
+    dispatch({ type: "SET_CATEGORY", name });
+  };
+
   const answerQuestion = (isCorrect) =>
     dispatch({ type: "ANSWER", isCorrect });
 
@@ -99,7 +110,8 @@ export function QuizProvider({ children }) {
           quizState: state, 
           answerQuestion, 
           setTotalQuestions,
-          resetQuiz 
+          resetQuiz,
+          setCategory 
       }}
     >
       {children}

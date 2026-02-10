@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AnswerOption from "../components/AnswerOption";
 import QuestionCard from "../components/QuestionCard";
-import useQuiz from "../hooks/useQuiz";
+import { useQuiz } from "../hooks/useQuiz";
 import { useQuizContext } from "../context/QuizContext";
 
 export default function QuizAnimals() {
     const navigate = useNavigate();
-    const { quizState, answerQuestion, setTotalQuestions } = useQuizContext();
+    const { quizState, answerQuestion, setTotalQuestions, setCategory } = useQuizContext();
     const { questions, loading, error } = useQuiz({
         amount: 10,
         category: 27
@@ -27,6 +27,10 @@ export default function QuizAnimals() {
             navigate("/quizResult");
         }
     }, [quizState.finished]);
+
+    useEffect(() => {
+        setCategory("ANIMALS");
+    }, []);
 
     if (loading) return <p className="text-center mt-20">Loading...</p>;
     if (error) return <p>Error {error}</p>;
