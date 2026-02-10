@@ -1,17 +1,34 @@
 import { useEffect, useState } from "react";
+import { fetchQuestions } from "../service/quiz";
 
-export default function useQuiz() {
+export function useQuiz(options) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("/api/quiz/animals")
-      .then(res => res.json())
-      .then(data => {
-        setQuestions(data);
-        setLoading(false);
-      });
-  }, []);
+    let cancelled = false;
 
-  return { questions, loading };
-};
+    async function load() {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const data = await fetchQuestions(options);
+        if (!cancelled) setQuestions(data);
+      } catch (err) {
+        if (!cancelled) setError(err.message);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+
+    load();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [JSON.stringify(options)]);
+
+  return { questions, loading, error };
+}

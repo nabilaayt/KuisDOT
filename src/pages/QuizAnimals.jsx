@@ -6,32 +6,43 @@ import useQuiz from "../hooks/useQuiz";
 import { useQuizContext } from "../context/QuizContext";
 
 export default function QuizAnimals() {
-    const { quizState, answerQuestion } = useQuizContext();
-    // const { question, loading } = useQuiz();
-    const [selected, setSelected] = useState(null);
     const navigate = useNavigate();
+    const { quizState, answerQuestion, setTotalQuestions } = useQuizContext();
+    const { questions, loading, error } = useQuiz({
+        amount: 10,
+        category: 27
+    });
+    const [selected, setSelected] = useState(null);
 
-    const dummyQuestion = {
-        question: "Panic! At the Disco’s sixth album 'Pray for the Wicked' was released on which date?",
-        answers: [
-            "June 15, 2017",
-            "July 13, 2018",
-            "June 22, 2018",
-            "August 3, 2019"
-    ],
-        correctIndex: 1
-    };
+    // Sync total soal ke context
+    useEffect(() => {
+        if(questions.length > 0){
+            setTotalQuestions(questions.length);
+        }
+    }, [questions]);
 
+    // Redirect jika selesai
     useEffect(() => {
         if(quizState.finished) {
             navigate("/quizResult");
         }
     }, [quizState.finished]);
 
+    if (loading) return <p className="text-center mt-20">Loading...</p>;
+    if (error) return <p>Error {error}</p>;
+
+    const current = questions[quizState.index];
+
+    if (!current) return null;
+
+    const correctIndex = current.answers.findIndex(
+        a => a === current.correct_answer
+    );
+
     const handleAnswer = (i) => {
         setSelected(i);
 
-        const isCorrect = i === dummyQuestion.correctIndex;
+        const isCorrect = i === correctIndex;
         answerQuestion(isCorrect);
 
         setTimeout(() => {
@@ -42,8 +53,6 @@ export default function QuizAnimals() {
     // Format Timer
     const minutes = String(Math.floor(quizState.timeLeft / 60)).padStart(2, "0");
     const seconds = String(quizState.timeLeft % 60).padStart(2, "0");
-
-    // if(loading) return <p>Loading...</p>;
 
     return(
         <section id="quizAnimals" className="font-nunito bg-quiz bg-repeat bg-cover bg-bottom w-full h-screen">
@@ -82,17 +91,17 @@ export default function QuizAnimals() {
 
                 {/* Section Quiz */}
                 <div className="flex-1 flex flex-col gap-10 items-center justify-center">
-                    <QuestionCard question={dummyQuestion.question} />
+                    <QuestionCard question={current.question} />
                     <div className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
-                        {dummyQuestion.answers.map((ans, i) => (
+                        {current.answers.map((ans, i) => (
                             <AnswerOption 
                                 key={i}
                                 answer={ans}
                                 onClick={() => handleAnswer(i)}
                                 disabled={selected !== null}
                                 isSelected={selected === i}
-                                isCorrect={selected !== null && i === dummyQuestion.correctIndex}
-                                isWrong={selected === i && i !== dummyQuestion.correctIndex}
+                                isCorrect={selected !== null && i === correctIndex}
+                                isWrong={selected === i && i !== correctIndex}
                             />
                         ))}
                     </div>

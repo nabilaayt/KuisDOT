@@ -21,6 +21,12 @@ function reducer(state, action) {
     case "LOAD_STATE":
       return action.payload;
 
+    case "SET_TOTAL":
+      return {
+        ...state,
+        total: action.total
+      };
+
     case "ANSWER":
       const nextIndex = state.index + 1;
 
@@ -78,6 +84,10 @@ export function QuizProvider({ children }) {
   const answerQuestion = (isCorrect) =>
     dispatch({ type: "ANSWER", isCorrect });
 
+  const setTotalQuestions = (total) => {
+    dispatch({ type: "SET_TOTAL", total });
+  };
+
   const resetQuiz = () => {
     localStorage.removeItem("quizState");
     dispatch({ type: "RESET" });
@@ -85,7 +95,12 @@ export function QuizProvider({ children }) {
 
   return (
     <QuizContext.Provider
-      value={{ quizState: state, answerQuestion, resetQuiz }}
+      value={{ 
+          quizState: state, 
+          answerQuestion, 
+          setTotalQuestions,
+          resetQuiz 
+      }}
     >
       {children}
     </QuizContext.Provider>
