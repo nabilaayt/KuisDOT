@@ -10,6 +10,7 @@ export default function Home () {
         logout();
         navigate("/login");
     };
+
     return(
         <section id="home" className="font-fredoka bg-result bg-repeat bg-cover bg-bottom relative w-full h-screen">
             <div className="w-full min-h-screen flex flex-col gap-6 sm:gap-8 md:gap-10 justify-center items-center px-4">
@@ -41,7 +42,7 @@ export default function Home () {
 
                 <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 md:gap-10 lg:gap-12 w-full max-w-6xl justify-center items-center">
                     <Link
-                        to="/quizAnimals"
+                        to="/quiz/animals"
                         className="w-full sm:w-auto max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg transition-all duration-300 ease-out hover:scale-110 hover:-translate-y-2 hover:rotate-2 active:scale-95 cursor-pointer"
                     >
                         <img 
@@ -51,7 +52,7 @@ export default function Home () {
                         />
                     </Link>
                     <Link
-                        to="/quizMusic"
+                        to="/quiz/music"
                        className="w-full sm:w-auto max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg transition-all duration-300 ease-out hover:scale-110 hover:-translate-y-2 hover:rotate-2 active:scale-95 cursor-pointer"
                     >
                         <img 

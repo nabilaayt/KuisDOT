@@ -2,7 +2,7 @@ import { createContext, useContext, useReducer, useEffect } from "react";
 
 const QuizContext = createContext();
 
-const INITIAL_TIME = 5 * 60; // 10 menit
+const INITIAL_TIME = 4 * 60; // Countdown timer 4 menit
 
 const initialState = {
   index: 0,
@@ -20,7 +20,10 @@ function reducer(state, action) {
   switch (action.type) {
 
     case "LOAD_STATE":
-      return action.payload;
+      return {
+        ...initialState,
+        ...action.payload
+    };
 
     case "SET_TOTAL":
       return {
@@ -64,7 +67,7 @@ function reducer(state, action) {
 export function QuizProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Load dari storage
+  // Load dari localStorage
   useEffect(() => {
     const saved = localStorage.getItem("quizState");
     if (saved) {
@@ -72,7 +75,7 @@ export function QuizProvider({ children }) {
     }
   }, []);
 
-  // Save ke storage
+  // Save ke localStorage
   useEffect(() => {
     localStorage.setItem("quizState", JSON.stringify(state));
   }, [state]);

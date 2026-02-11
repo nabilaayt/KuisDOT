@@ -1,5 +1,6 @@
 const BASE_URL = "https://opentdb.com";
 
+// Decode text berdasarkan encode url3986 oleh API
 function decode(text) {
   try {
     return decodeURIComponent(text);
@@ -8,11 +9,12 @@ function decode(text) {
   }
 }
 
-// shuffle answers
+// Acak Urutan Jawaban
 function shuffle(array) {
   return [...array].sort(() => Math.random() - 0.5);
 }
 
+// Normalisasi data soal dari API
 function normalizeQuestions(results) {
   return results.map(q => {
     const answers = shuffle([
@@ -30,6 +32,7 @@ function normalizeQuestions(results) {
   });
 }
 
+// Ambil data soal dari API
 export async function fetchQuestions({
   amount = 10,
   category,

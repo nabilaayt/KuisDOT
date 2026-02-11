@@ -8,10 +8,12 @@ export default function ProtectedRoute({
 }) {
   const { user } = useAuth();
 
+  // Redirect halaman login jika user belum login
   if (requireAuth && !user) {
     return <Navigate to="/login" replace />;
   }
 
+  // Jika sudah login redirect halaman home
   if (publicOnly && user) {
     return <Navigate to="/home" replace />;
   }

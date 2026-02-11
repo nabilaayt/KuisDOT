@@ -20,7 +20,6 @@ export default function QuizResult() {
         navigate("/home");
     };
 
-
     return(
         <section id="quizResult" className="font-fredoka bg-result bg-repeat bg-cover bg-bottom w-full h-screen">
             <div className="w-full min-h-screen flex flex-col gap-6 sm:gap-8 md:gap-10 justify-center items-center px-4">

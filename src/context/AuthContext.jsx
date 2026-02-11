@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
+// Ambil inisial berdasarkan email
 function getInitials(nameOrEmail) {
   if (!nameOrEmail) return "?";
 
@@ -38,6 +39,7 @@ export function AuthProvider({ children }) {
       localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
 
+  // Fungsi Login
   const login = ({ email }) => {
     const initials = getInitials(email);
 
@@ -51,6 +53,7 @@ export function AuthProvider({ children }) {
     setUser(newUser);
   };
 
+  // Fungsi Logout
   const logout = () => {
     localStorage.removeItem("user");
     setUser(null);

@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { fetchQuestions } from "../service/quiz";
 
 export function useQuiz(options) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const fetchedRef = useRef(false);
 
   useEffect(() => {
+
+    // Mencegah double fetch
+    if(fetchedRef.current) return;
+    fetchedRef.current = true;
+
     let cancelled = false;
 
     async function load() {

@@ -4,9 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import QuizAnimals from "./pages/QuizAnimals";
-import QuizMusic from "./pages/QuizMusic";
 import QuizResult from "./pages/QuizResult";
+import QuizPage from "./pages/QuizPage";
 
 // Components
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -44,18 +43,10 @@ function App() {
         } 
       />
       <Route 
-        path="/quizAnimals" 
+        path="/quiz/:category" 
         element={
           <ProtectedRoute requireAuth>
-            <QuizAnimals />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/quizMusic" 
-        element={
-          <ProtectedRoute requireAuth>
-            <QuizMusic />
+            <QuizPage />
           </ProtectedRoute>
         } 
       />
