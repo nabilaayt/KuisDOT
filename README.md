@@ -1,16 +1,42 @@
-# React + Vite
+### Dokumentasi Website Quizo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+## Tech Stack
+Terdapat beberapa tech stack yang digunakan, yaitu:
+- Library React (UI Library)
+- Tailwind CSS (Utility first CSS framework)
+- React Router DOM (Client-side routing)
+- Context API (State management)
+- Open Trivia Database API (Sumber soal kuis)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Application Flow
+1. User login ke sistem menggunakan email dan password.
+2. Setelah login berhasil, user diarahkan ke halaman Home yang menampilkan pilihan kategori quiz (Animals dan Music).
+3. User memilih salah satu kategori quiz.
+4. Sistem mengambil soal dari OpenTDB API dan menampilkan satu soal per halaman.
+5. User memilih jawaban → otomatis lanjut ke soal berikutnya.
+6. Timer berjalan selama quiz berlangsung.
+7. Setelah selesai atau waktu habis, sistem menampilkan hasil quiz.
+8. Progress quiz disimpan di local storage sehingga dapat dilanjutkan kembali jika browser ditutup.
 
-## React Compiler
+## Components Architecture
+1. Answer Component : Digunakan untuk menampilkan pilihan jawaban pada setiap soal quiz.
+2. ProtectedRoute Component : Digunakan untuk mengatur akses halaman berdasarkan status autentikasi user.
+3. Question Card Component : Digunakan untuk menampilkan pertanyaan quiz.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Context Architecture
+1. AuthContext : Mengelola state autentikasi user secara global.
+2. QuizContext : Mengelola state quiz secara global.
 
-## Expanding the ESLint configuration
+## Custom Hooks
+1. useQuiz : Custom hook yang bertanggung jawab untuk mengambil soal dari API. 
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## API Integration
+- Struktur Service:
+1. quiz.js : Membuat request URL, mengirim fetch request, validasi response API, decode data soal, mengacak urutan jawaban, mengembalikan data siap pakai.
+
+## Setup & Installation
+1. Clone repository (git clone <repository_url>) dan cd frontend
+2. Install depedencies (npm install)
+3. Run development server (npm run dev)
+4. Buka browser dan ketikkan http://localhost:5173
