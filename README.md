@@ -36,7 +36,7 @@ Terdapat beberapa tech stack yang digunakan, yaitu:
 1. quiz.js : Membuat request URL, mengirim fetch request, validasi response API, decode data soal, mengacak urutan jawaban, mengembalikan data siap pakai.
 
 ## Setup & Installation
-1. Clone repository (git clone <repository_url>) dan cd frontend
+1. Clone repository (git clone <repository_url>)
 2. Install depedencies (npm install)
 3. Run development server (npm run dev)
 4. Buka browser dan ketikkan http://localhost:5173
